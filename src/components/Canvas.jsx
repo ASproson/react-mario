@@ -5,13 +5,16 @@ import { useRef } from "react";
 
 const Canvas = () => {
   const [ctx, setContext] = useState();
+  const [canvas, setCanvas] = useState()
   const canvasRef = useRef();
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    setContext(canvas.getContext("2d"));
+    setCanvas(canvasRef.current)
+    if(canvas){
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      setContext(canvas.getContext("2d"));
+    }
   });
 
   class Player {
@@ -23,7 +26,7 @@ const Canvas = () => {
 
       this.velocity = {
         x: 0,
-        y: 20,
+        y: 1,
       };
 
       this.width = 30;
@@ -38,13 +41,20 @@ const Canvas = () => {
     }
 
     update() {
-      this.position.y += this.velocity.y;
       this.draw();
+      this.position.y += this.velocity.y;
     }
   }
 
   const player = new Player();
-  player.update();
+
+  const animate = () => {
+    requestAnimationFrame(animate);
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    player.update();
+  };
+
+  // animate();
 
   return (
     <div>
