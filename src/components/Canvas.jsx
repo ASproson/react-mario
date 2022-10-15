@@ -5,17 +5,19 @@ import { useRef } from "react";
 
 const Canvas = () => {
   const [ctx, setContext] = useState();
-  const [canvas, setCanvas] = useState()
+  const [canvas, setCanvas] = useState();
   const canvasRef = useRef();
 
   useEffect(() => {
-    setCanvas(canvasRef.current)
-    if(canvas){
+    setCanvas(canvasRef.current);
+    if (canvas) {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
       setContext(canvas.getContext("2d"));
     }
   });
+
+  const gravity = 0.5;
 
   class Player {
     constructor() {
@@ -26,7 +28,7 @@ const Canvas = () => {
 
       this.velocity = {
         x: 0,
-        y: 1,
+        y: 0,
       };
 
       this.width = 30;
@@ -43,18 +45,27 @@ const Canvas = () => {
     update() {
       this.draw();
       this.position.y += this.velocity.y;
+      if (canvas) {
+        if (this.position.y + this.height + this.velocity.y <= canvas.height) {
+          this.velocity.y += gravity;
+        } else {
+          this.velocity.y = 0;
+        }
+      }
     }
   }
 
   const player = new Player();
 
   const animate = () => {
-    requestAnimationFrame(animate);
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-    player.update();
+    if (ctx) {
+      requestAnimationFrame(animate);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      player.update();
+    }
   };
 
-  // animate();
+  animate();
 
   return (
     <div>
