@@ -58,12 +58,27 @@ const Canvas = () => {
   }
 
   const player = new Player();
+  const keys = {
+    right: {
+      pressed: false,
+    },
+    left: {
+      pressed: false,
+    },
+  };
 
   const animate = () => {
     if (ctx) {
       requestAnimationFrame(animate);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       player.update();
+      if (keys.right.pressed) {
+        player.velocity.x = 5;
+      } else if (keys.left.pressed) {
+        player.velocity.x = -5;
+      } else {
+        player.velocity.x = 0;
+      }
     }
   };
 
@@ -75,10 +90,11 @@ const Canvas = () => {
     switch (keyCode) {
       case 65:
         // "A left"
+        keys.left.pressed = true;
         break;
       case 68:
         // "D right"
-        player.velocity.x += 2;
+        keys.right.pressed = true;
         break;
       case 83:
         // "S down"
@@ -94,24 +110,30 @@ const Canvas = () => {
     switch (keyCode) {
       case 65:
         // "A left"
+        keys.left.pressed = false;
+
         break;
       case 68:
         // "D right"
-        player.velocity.x = 0;
+        keys.right.pressed = false;
         break;
       case 83:
         // "S down"
         break;
       case 87:
         // "W up"
-        player.velocity.y -= 10;
         break;
     }
   };
 
   return (
     <div>
-      <canvas ref={canvasRef} tabIndex="0" onKeyDown={handleKeyDown} onKeyUp={handleKeyUp}></canvas>
+      <canvas
+        ref={canvasRef}
+        tabIndex="0"
+        onKeyDown={handleKeyDown}
+        onKeyUp={handleKeyUp}
+      ></canvas>
     </div>
   );
 };
