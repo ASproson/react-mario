@@ -23,15 +23,12 @@ const Canvas = () => {
 
   const gravity = 0.5;
 
-
-
-
   const createImage = (imageSrc) => {
-      // default html image class
-  const image = new Image();
-  image.src = platformImg;
-  return image
-  }
+    // default html image class
+    const image = new Image();
+    image.src = imageSrc;
+    return image;
+  };
 
   class Player {
     constructor() {
@@ -113,7 +110,7 @@ const Canvas = () => {
 
   const player = new Player();
 
-  const platformImage = createImage(platformImg)
+  const platformImage = createImage(platformImg);
 
   const platforms = [
     new Platform({ x: -1, y: 470, image: platformImage }),
@@ -129,7 +126,9 @@ const Canvas = () => {
     },
   };
 
-  const genericObjects = [new GenericObject({ x: 0, y: 0, image: createImage(background)})]
+  const genericObjects = [
+    new GenericObject({ x: -1, y: -1, image: createImage(background) }),
+  ];
 
   let scrollOffset = 0;
 
@@ -137,9 +136,12 @@ const Canvas = () => {
     if (ctx) {
       // if (ctx) required to prevent render until ctx is available
       requestAnimationFrame(animate);
-      ctx.fillStyle = 'white'
-
+      ctx.fillStyle = "white";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      genericObjects.forEach((genericObject) => {
+        genericObject.draw()
+      })
 
       platforms.forEach((platform) => {
         platform.draw();
