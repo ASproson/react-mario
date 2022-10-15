@@ -94,6 +94,8 @@ const Canvas = () => {
     },
   };
 
+  let scrollOffset = 0;
+
   const animate = () => {
     if (ctx) {
       // if (ctx) required to prevent render until ctx is available
@@ -113,13 +115,18 @@ const Canvas = () => {
       } else {
         player.velocity.x = 0;
         if (keys.right.pressed) {
+          scrollOffset += 5
           platforms.forEach((platform) => {
             platform.position.x -= 5;
           });
         } else if (keys.left.pressed) {
+          scrollOffset -= 5
           platforms.forEach((platform) => {
             platform.position.x += 5;
           });
+        }
+        if(scrollOffset > 2000){
+          console.log('you win')
         }
       }
 
