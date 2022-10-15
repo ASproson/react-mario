@@ -44,7 +44,9 @@ const Canvas = () => {
 
     update() {
       this.draw();
+      this.position.x += this.velocity.x;
       this.position.y += this.velocity.y;
+
       if (canvas) {
         if (this.position.y + this.height + this.velocity.y <= canvas.height) {
           this.velocity.y += gravity;
@@ -70,31 +72,46 @@ const Canvas = () => {
   // player.velocity.y -= 10;
 
   const handleKeyDown = ({ keyCode }) => {
-    // switch (keyCode) {
-    //   case 65:
-    //     console.log("left");
-    //     break;
-    //   case 68:
-    //     console.log("right");
-    //     break;
-    //   case 83:
-    //     console.log("down");
-    //     break;
-    //   case 87:
-    //     console.log("up");
-    //     player.velocity.y -= 20
-    //     break;
-    // }
-    if (keyCode === 87) {
-      if(player.velocity.y === 0){
+    switch (keyCode) {
+      case 65:
+        // "A left"
+        break;
+      case 68:
+        // "D right"
+        player.velocity.x += 2;
+        break;
+      case 83:
+        // "S down"
+        break;
+      case 87:
+        // "W up"
         player.velocity.y -= 10;
-      }
+        break;
+    }
+  };
+
+  const handleKeyUp = ({ keyCode }) => {
+    switch (keyCode) {
+      case 65:
+        // "A left"
+        break;
+      case 68:
+        // "D right"
+        player.velocity.x = 0;
+        break;
+      case 83:
+        // "S down"
+        break;
+      case 87:
+        // "W up"
+        player.velocity.y -= 10;
+        break;
     }
   };
 
   return (
     <div>
-      <canvas ref={canvasRef} tabIndex="0" onKeyDown={handleKeyDown}></canvas>
+      <canvas ref={canvasRef} tabIndex="0" onKeyDown={handleKeyDown} onKeyUp={handleKeyUp}></canvas>
     </div>
   );
 };
