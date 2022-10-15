@@ -128,6 +128,7 @@ const Canvas = () => {
 
   const genericObjects = [
     new GenericObject({ x: -1, y: -1, image: createImage(background) }),
+    new GenericObject({ x: -1, y: -1, image: createImage(hills) }),
   ];
 
   let scrollOffset = 0;
@@ -140,8 +141,8 @@ const Canvas = () => {
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       genericObjects.forEach((genericObject) => {
-        genericObject.draw()
-      })
+        genericObject.draw();
+      });
 
       platforms.forEach((platform) => {
         platform.draw();
@@ -160,11 +161,17 @@ const Canvas = () => {
           platforms.forEach((platform) => {
             platform.position.x -= 5;
           });
+          genericObjects.forEach((genericObject) => {
+            genericObject.position.x -= 3
+          })
         } else if (keys.left.pressed) {
           scrollOffset -= 5;
           platforms.forEach((platform) => {
             platform.position.x += 5;
           });
+          genericObjects.forEach((genericObject) => {
+            genericObject.position.x += 3
+          })
         }
         if (scrollOffset > 2000) {
           console.log("you win");
