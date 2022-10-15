@@ -88,8 +88,8 @@ const Canvas = () => {
   const player = new Player();
 
   const platforms = [
-    new Platform({ x: 200, y: 100, image: image }),
-    new Platform({ x: 500, y: 300, image: image }),
+    new Platform({ x: -1, y: 470, image: image }),
+    new Platform({ x: image.width - 3, y: 470, image: image }),
   ];
 
   const keys = {
@@ -196,7 +196,7 @@ const Canvas = () => {
   };
 
   return (
-    <div className="flex justify-center bg-black">
+    <div className="flex justify-center bg-black h-screen">
       <canvas
         ref={canvasRef}
         tabIndex="0"
