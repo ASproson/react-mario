@@ -15,7 +15,7 @@ const Canvas = () => {
       canvas.height = window.innerHeight;
       setContext(canvas.getContext("2d"));
     }
-  });
+  }, [canvas]);
 
   const gravity = 0.5;
 
@@ -55,21 +55,49 @@ const Canvas = () => {
     }
   }
 
+
+
   const player = new Player();
+
 
   const animate = () => {
     if (ctx) {
       requestAnimationFrame(animate);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      player.update();
+      if(player){
+        player.update();
+
+      }
     }
   };
 
   animate();
 
-  const handleKeyDown = (event) => {
-    console.log('here')
-  }
+  // player.velocity.y -= 10;
+
+
+  const handleKeyDown = ({ keyCode }) => {
+    // switch (keyCode) {
+    //   case 65:
+    //     console.log("left");
+    //     break;
+    //   case 68:
+    //     console.log("right");
+    //     break;
+    //   case 83:
+    //     console.log("down");
+    //     break;
+    //   case 87:
+    //     console.log("up");
+    //     player.velocity.y -= 20
+    //     break;
+    // }
+    if (keyCode === 87) {
+      console.log(player.velocity.y);
+      player.velocity.y -= 20;
+      console.log(player.velocity.y);
+    }
+  };
 
   return (
     <div>
