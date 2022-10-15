@@ -1,9 +1,10 @@
 import './App.css';
+import Canvas from './components/Canvas';
 
 function App() {
   return (
     <div className="App">
-      <h1 className='text-3xl'>Hello World</h1>
+      <Canvas />
     </div>
   );
 }
