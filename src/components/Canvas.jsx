@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
-import platformImg from '../assets/platform.png'
+import platformImg from "../assets/platform.png";
 
 const Canvas = () => {
   const [ctx, setContext] = useState();
@@ -13,8 +13,8 @@ const Canvas = () => {
     setCanvas(canvasRef.current);
     if (canvas) {
       // if (canvas) required to prevent render until canvas is available
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      canvas.width = 1024;
+      canvas.height = 576;
       setContext(canvas.getContext("2d"));
     }
   }, [canvas]);
@@ -22,8 +22,8 @@ const Canvas = () => {
   const gravity = 0.5;
 
   // default html image class
-  const image = new Image()
-  image.src = platformImg
+  const image = new Image();
+  image.src = platformImg;
 
   class Player {
     constructor() {
@@ -70,7 +70,7 @@ const Canvas = () => {
         x: x,
         y: y,
       };
-      this.image = image
+      this.image = image;
       this.width = image.width;
       this.height = image.height;
     }
@@ -80,7 +80,7 @@ const Canvas = () => {
         // if (ctx) required to prevent render until ctx is available
         // ctx.fillStyle = "blue";
         // ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
-        ctx.drawImage(this.image, this.position.x, this.position.y)
+        ctx.drawImage(this.image, this.position.x, this.position.y);
       }
     }
   }
@@ -107,15 +107,16 @@ const Canvas = () => {
     if (ctx) {
       // if (ctx) required to prevent render until ctx is available
       requestAnimationFrame(animate);
+      ctx.fillStyle = 'white'
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       platforms.forEach((platform) => {
         platform.draw();
       });
-      
+
       player.update();
-      
+
       if (keys.right.pressed && player.position.x < 400) {
         player.velocity.x = 5;
       } else if (keys.left.pressed && player.position.x > 100) {
@@ -123,18 +124,18 @@ const Canvas = () => {
       } else {
         player.velocity.x = 0;
         if (keys.right.pressed) {
-          scrollOffset += 5
+          scrollOffset += 5;
           platforms.forEach((platform) => {
             platform.position.x -= 5;
           });
         } else if (keys.left.pressed) {
-          scrollOffset -= 5
+          scrollOffset -= 5;
           platforms.forEach((platform) => {
             platform.position.x += 5;
           });
         }
-        if(scrollOffset > 2000){
-          console.log('you win')
+        if (scrollOffset > 2000) {
+          console.log("you win");
         }
       }
 
@@ -195,7 +196,7 @@ const Canvas = () => {
   };
 
   return (
-    <div>
+    <div className="flex justify-center bg-black">
       <canvas
         ref={canvasRef}
         tabIndex="0"
