@@ -11,6 +11,7 @@ const Canvas = () => {
   useEffect(() => {
     setCanvas(canvasRef.current);
     if (canvas) {
+      // if (canvas) required to prevent render until canvas is available
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
       setContext(canvas.getContext("2d"));
@@ -37,6 +38,7 @@ const Canvas = () => {
 
     draw() {
       if (ctx) {
+        // if (ctx) required to prevent render until ctx is available
         ctx.fillStyle = "red";
         ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
       }
@@ -60,24 +62,25 @@ const Canvas = () => {
   class Platform {
     constructor() {
       this.position = {
-        x: 0,
-        y: 0,
-      }
-      this.width = 200
-      this.height = 20
+        x: 200,
+        y: 100,
+      };
+      this.width = 200;
+      this.height = 20;
     }
 
     draw() {
-      if(ctx){
-        ctx.fillStyle = 'blue'
-        ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
+      if (ctx) {
+        // if (ctx) required to prevent render until ctx is available
+        ctx.fillStyle = "blue";
+        ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
       }
     }
   }
 
   const player = new Player();
 
-  const platform = new Platform()
+  const platform = new Platform();
 
   const keys = {
     right: {
@@ -90,10 +93,14 @@ const Canvas = () => {
 
   const animate = () => {
     if (ctx) {
+      // if (ctx) required to prevent render until ctx is available
       requestAnimationFrame(animate);
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+
       player.update();
-      platform.draw()
+      platform.draw();
+
       if (keys.right.pressed) {
         player.velocity.x = 5;
       } else if (keys.left.pressed) {
@@ -101,13 +108,20 @@ const Canvas = () => {
       } else {
         player.velocity.x = 0;
       }
+
+      // Platform collision
+      if (
+        player.position.y + player.height <= platform.position.y &&
+        player.position.y + player.height + player.velocity.y >=
+          platform.position.y
+      ) {
+        player.velocity.y = 0;
+      }
     }
   };
 
   animate();
-
-  // player.velocity.y -= 10;
-
+  
   const handleKeyDown = ({ keyCode }) => {
     switch (keyCode) {
       case 65:
@@ -133,7 +147,6 @@ const Canvas = () => {
       case 65:
         // "A left"
         keys.left.pressed = false;
-
         break;
       case 68:
         // "D right"
