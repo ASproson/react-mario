@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
+import platformImg from '../assets/platform.png'
 
 const Canvas = () => {
   const [ctx, setContext] = useState();
@@ -19,6 +20,9 @@ const Canvas = () => {
   }, [canvas]);
 
   const gravity = 0.5;
+
+  const image = new Image()
+  image.src = platformImg
 
   class Player {
     constructor() {
@@ -60,20 +64,22 @@ const Canvas = () => {
   }
 
   class Platform {
-    constructor({ x, y }) {
+    constructor({ x, y, image }) {
       this.position = {
         x: x,
         y: y,
       };
       this.width = 200;
       this.height = 20;
+      this.image = image
     }
 
     draw() {
       if (ctx) {
         // if (ctx) required to prevent render until ctx is available
-        ctx.fillStyle = "blue";
-        ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+        // ctx.fillStyle = "blue";
+        // ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+        ctx.drawImage(this.image, this.position.x, this.position.y)
       }
     }
   }
@@ -81,8 +87,8 @@ const Canvas = () => {
   const player = new Player();
 
   const platforms = [
-    new Platform({ x: 200, y: 100 }),
-    new Platform({ x: 500, y: 300 }),
+    new Platform({ x: 200, y: 100, image: image }),
+    new Platform({ x: 500, y: 300, image: image }),
   ];
 
   const keys = {
