@@ -67,9 +67,13 @@ const Canvas = () => {
 
   animate();
 
+  const handleKeyDown = (event) => {
+    console.log('here')
+  }
+
   return (
     <div>
-      <canvas ref={canvasRef}></canvas>
+      <canvas ref={canvasRef} tabIndex="0" onKeyDown={handleKeyDown}></canvas>
     </div>
   );
 };
