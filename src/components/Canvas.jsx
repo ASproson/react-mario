@@ -107,6 +107,11 @@ const Canvas = () => {
         player.velocity.x = -5;
       } else {
         player.velocity.x = 0;
+        if (keys.right.pressed) {
+          platform.position.x -= 5;
+        } else if (keys.left.pressed) {
+          platform.position.x += 5;
+        }
       }
 
       // Platform collision
