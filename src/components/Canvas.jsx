@@ -20,6 +20,12 @@ const Canvas = () => {
         x: 100,
         y: 100,
       };
+
+      this.velocity = {
+        x: 0,
+        y: 20,
+      };
+
       this.width = 30;
       this.height = 30;
     }
@@ -30,10 +36,15 @@ const Canvas = () => {
         ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
       }
     }
+
+    update() {
+      this.position.y += this.velocity.y;
+      this.draw();
+    }
   }
 
   const player = new Player();
-  player.draw();
+  player.update();
 
   return (
     <div>
