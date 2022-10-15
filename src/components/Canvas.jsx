@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
 import platformImg from "../assets/platform.png";
+import hills from "../assets/hills.png";
+import background from "../assets/background.png";
 
 const Canvas = () => {
   const [ctx, setContext] = useState();
@@ -21,9 +23,15 @@ const Canvas = () => {
 
   const gravity = 0.5;
 
-  // default html image class
+
+
+
+  const createImage = (imageSrc) => {
+      // default html image class
   const image = new Image();
   image.src = platformImg;
+  return image
+  }
 
   class Player {
     constructor() {
@@ -85,11 +93,31 @@ const Canvas = () => {
     }
   }
 
+  class GenericObject {
+    constructor({ x, y, image }) {
+      this.position = {
+        x: x,
+        y: y,
+      };
+      this.image = image;
+      this.width = image.width;
+      this.height = image.height;
+    }
+
+    draw() {
+      if (ctx) {
+        ctx.drawImage(this.image, this.position.x, this.position.y);
+      }
+    }
+  }
+
   const player = new Player();
 
+  const platformImage = createImage(platformImg)
+
   const platforms = [
-    new Platform({ x: -1, y: 470, image: image }),
-    new Platform({ x: image.width - 3, y: 470, image: image }),
+    new Platform({ x: -1, y: 470, image: platformImage }),
+    new Platform({ x: platformImage.width - 3, y: 470, image: platformImage }),
   ];
 
   const keys = {
@@ -100,6 +128,8 @@ const Canvas = () => {
       pressed: false,
     },
   };
+
+  const genericObjects = [new GenericObject({ x: 0, y: 0, image: createImage(background)})]
 
   let scrollOffset = 0;
 
