@@ -9,6 +9,8 @@ const Canvas = () => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
     setContext(canvas.getContext("2d"));
   });
 
