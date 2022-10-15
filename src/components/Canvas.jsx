@@ -25,8 +25,10 @@ const Canvas = () => {
     }
 
     draw() {
-      ctx.fillStyle = "red";
-      ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+      if (ctx) {
+        ctx.fillStyle = "red";
+        ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+      }
     }
   }
 
