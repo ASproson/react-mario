@@ -21,6 +21,7 @@ const Canvas = () => {
 
   const gravity = 0.5;
 
+  // default html image class
   const image = new Image()
   image.src = platformImg
 
@@ -69,9 +70,9 @@ const Canvas = () => {
         x: x,
         y: y,
       };
-      this.width = 200;
-      this.height = 20;
       this.image = image
+      this.width = image.width;
+      this.height = image.height;
     }
 
     draw() {
@@ -109,11 +110,12 @@ const Canvas = () => {
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      player.update();
       platforms.forEach((platform) => {
         platform.draw();
       });
-
+      
+      player.update();
+      
       if (keys.right.pressed && player.position.x < 400) {
         player.velocity.x = 5;
       } else if (keys.left.pressed && player.position.x > 100) {
