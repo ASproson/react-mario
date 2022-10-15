@@ -55,26 +55,19 @@ const Canvas = () => {
     }
   }
 
-
-
   const player = new Player();
-
 
   const animate = () => {
     if (ctx) {
       requestAnimationFrame(animate);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      if(player){
-        player.update();
-
-      }
+      player.update();
     }
   };
 
   animate();
 
   // player.velocity.y -= 10;
-
 
   const handleKeyDown = ({ keyCode }) => {
     // switch (keyCode) {
@@ -93,9 +86,9 @@ const Canvas = () => {
     //     break;
     // }
     if (keyCode === 87) {
-      console.log(player.velocity.y);
-      player.velocity.y -= 20;
-      console.log(player.velocity.y);
+      if(player.velocity.y === 0){
+        player.velocity.y -= 10;
+      }
     }
   };
 
