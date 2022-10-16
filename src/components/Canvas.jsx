@@ -62,9 +62,25 @@ const Canvas = () => {
       if (canvas) {
         if (this.position.y + this.height + this.velocity.y <= canvas.height) {
           this.velocity.y += gravity;
-        } else {
-          this.velocity.y = 0;
         }
+      }
+    }
+  }
+
+  class GenericObject {
+    constructor({ x, y, image }) {
+      this.position = {
+        x: x,
+        y: y,
+      };
+      this.image = image;
+      this.width = image.width;
+      this.height = image.height;
+    }
+
+    draw() {
+      if (ctx) {
+        ctx.drawImage(this.image, this.position.x, this.position.y);
       }
     }
   }
@@ -90,32 +106,26 @@ const Canvas = () => {
     }
   }
 
-  class GenericObject {
-    constructor({ x, y, image }) {
-      this.position = {
-        x: x,
-        y: y,
-      };
-      this.image = image;
-      this.width = image.width;
-      this.height = image.height;
-    }
+  let platformImage = createImage(platformImg);
+  let player = new Player();
 
-    draw() {
-      if (ctx) {
-        ctx.drawImage(this.image, this.position.x, this.position.y);
-      }
-    }
-  }
-
-  const player = new Player();
-
-  const platformImage = createImage(platformImg);
-
-  const platforms = [
+  let platforms = [
     new Platform({ x: -1, y: 470, image: platformImage }),
-    new Platform({ x: platformImage.width - 3, y: 470, image: platformImage }),
-    new Platform({ x: platformImage.width * 2 + 100, y: 470, image: platformImage }),
+    new Platform({
+      x: platformImage.width - 3,
+      y: 470,
+      image: platformImage,
+    }),
+    new Platform({
+      x: platformImage.width * 2 + 100,
+      y: 470,
+      image: platformImage,
+    }),
+  ];
+
+  let genericObjects = [
+    new GenericObject({ x: -1, y: -1, image: createImage(background) }),
+    new GenericObject({ x: -1, y: -1, image: createImage(hills) }),
   ];
 
   const keys = {
@@ -127,12 +137,33 @@ const Canvas = () => {
     },
   };
 
-  const genericObjects = [
-    new GenericObject({ x: -1, y: -1, image: createImage(background) }),
-    new GenericObject({ x: -1, y: -1, image: createImage(hills) }),
-  ];
-
   let scrollOffset = 0;
+
+  const init = () => {
+    platformImage = createImage(platformImg);
+    player = new Player();
+
+    platforms = [
+      new Platform({ x: -1, y: 470, image: platformImage }),
+      new Platform({
+        x: platformImage.width - 3,
+        y: 470,
+        image: platformImage,
+      }),
+      new Platform({
+        x: platformImage.width * 2 + 100,
+        y: 470,
+        image: platformImage,
+      }),
+    ];
+
+    genericObjects = [
+      new GenericObject({ x: -1, y: -1, image: createImage(background) }),
+      new GenericObject({ x: -1, y: -1, image: createImage(hills) }),
+    ];
+
+    scrollOffset = 0;
+  };
 
   const animate = () => {
     if (ctx) {
@@ -174,8 +205,17 @@ const Canvas = () => {
             genericObject.position.x += 3;
           });
         }
+
+        // Win Condition
         if (scrollOffset > 2000) {
           console.log("you win");
+        }
+
+        // Lose Condition
+        if (player.position.y > canvas.height) {
+          console.log("you lose");
+          // alert('Loss!')
+          init();
         }
       }
 
