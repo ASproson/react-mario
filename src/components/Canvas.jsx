@@ -361,7 +361,9 @@ const Canvas = () => {
         break;
       case 87:
         // "W up"
-        player.velocity.y -= 12;
+        if (player.velocity.y === 0) {
+          player.velocity.y -= 12;
+        }
         break;
       default:
         console.log();
