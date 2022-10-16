@@ -32,6 +32,7 @@ const Canvas = () => {
 
   class Player {
     constructor() {
+      this.speed = 10;
       this.position = {
         x: 100,
         y: 100,
@@ -183,26 +184,26 @@ const Canvas = () => {
       player.update();
 
       if (keys.right.pressed && player.position.x < 400) {
-        player.velocity.x = 5;
+        player.velocity.x = player.speed;
       } else if (keys.left.pressed && player.position.x > 100) {
-        player.velocity.x = -5;
+        player.velocity.x = -player.speed;
       } else {
         player.velocity.x = 0;
         if (keys.right.pressed) {
-          scrollOffset += 5;
+          scrollOffset += player.speed;
           platforms.forEach((platform) => {
-            platform.position.x -= 5;
+            platform.position.x -= player.speed;
           });
           genericObjects.forEach((genericObject) => {
-            genericObject.position.x -= 3;
+            genericObject.position.x -= player.speed * 0.66;
           });
         } else if (keys.left.pressed) {
-          scrollOffset -= 5;
+          scrollOffset -= player.speed;
           platforms.forEach((platform) => {
-            platform.position.x += 5;
+            platform.position.x += player.speed;
           });
           genericObjects.forEach((genericObject) => {
-            genericObject.position.x += 3;
+            genericObject.position.x += player.speed * 0.66;
           });
         }
 
