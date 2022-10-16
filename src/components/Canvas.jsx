@@ -115,6 +115,7 @@ const Canvas = () => {
   const platforms = [
     new Platform({ x: -1, y: 470, image: platformImage }),
     new Platform({ x: platformImage.width - 3, y: 470, image: platformImage }),
+    new Platform({ x: platformImage.width * 2 + 100, y: 470, image: platformImage }),
   ];
 
   const keys = {
@@ -162,16 +163,16 @@ const Canvas = () => {
             platform.position.x -= 5;
           });
           genericObjects.forEach((genericObject) => {
-            genericObject.position.x -= 3
-          })
+            genericObject.position.x -= 3;
+          });
         } else if (keys.left.pressed) {
           scrollOffset -= 5;
           platforms.forEach((platform) => {
             platform.position.x += 5;
           });
           genericObjects.forEach((genericObject) => {
-            genericObject.position.x += 3
-          })
+            genericObject.position.x += 3;
+          });
         }
         if (scrollOffset > 2000) {
           console.log("you win");
@@ -213,7 +214,7 @@ const Canvas = () => {
         player.velocity.y -= 10;
         break;
       default:
-        console.log()
+        console.log();
     }
   };
 
@@ -233,8 +234,8 @@ const Canvas = () => {
       case 87:
         // "W up"
         break;
-        default:
-        console.log()
+      default:
+        console.log();
     }
   };
 
