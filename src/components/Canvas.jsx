@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
 import platformImg from "../assets/platform.png";
+import platformSmallTall from "../assets/platformSmallTall.png";
+
 import hills from "../assets/hills.png";
 import background from "../assets/background.png";
 
@@ -108,26 +110,12 @@ const Canvas = () => {
   }
 
   let platformImage = createImage(platformImg);
+  let platformSmallTallImage = createImage(platformSmallTall)
   let player = new Player();
 
-  let platforms = [
-    new Platform({ x: -1, y: 470, image: platformImage }),
-    new Platform({
-      x: platformImage.width - 3,
-      y: 470,
-      image: platformImage,
-    }),
-    new Platform({
-      x: platformImage.width * 2 + 100,
-      y: 470,
-      image: platformImage,
-    }),
-  ];
+  let platforms = [];
 
-  let genericObjects = [
-    new GenericObject({ x: -1, y: -1, image: createImage(background) }),
-    new GenericObject({ x: -1, y: -1, image: createImage(hills) }),
-  ];
+  let genericObjects = [];
 
   const keys = {
     right: {
@@ -145,6 +133,11 @@ const Canvas = () => {
     player = new Player();
 
     platforms = [
+      new Platform({
+        x: platformImage.width * 4 + 300 - 2 + platformImage.width - platformSmallTallImage.width,
+        y: 330,
+        image: platformSmallTallImage,
+      }),
       new Platform({ x: -1, y: 470, image: platformImage }),
       new Platform({
         x: platformImage.width - 3,
@@ -153,6 +146,21 @@ const Canvas = () => {
       }),
       new Platform({
         x: platformImage.width * 2 + 100,
+        y: 470,
+        image: platformImage,
+      }),
+      new Platform({
+        x: platformImage.width * 3 + 300,
+        y: 470,
+        image: platformImage,
+      }),
+      new Platform({
+        x: platformImage.width * 4 + 300 - 2,
+        y: 470,
+        image: platformImage,
+      }),
+      new Platform({
+        x: platformImage.width * 5 + 800 - 2,
         y: 470,
         image: platformImage,
       }),
@@ -235,6 +243,7 @@ const Canvas = () => {
     }
   };
 
+  init();
   animate();
 
   const handleKeyDown = ({ keyCode }) => {
@@ -252,7 +261,7 @@ const Canvas = () => {
         break;
       case 87:
         // "W up"
-        player.velocity.y -= 10;
+        player.velocity.y -= 12;
         break;
       default:
         console.log();
