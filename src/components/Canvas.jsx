@@ -212,6 +212,8 @@ const Canvas = () => {
         // "W up"
         player.velocity.y -= 10;
         break;
+      default:
+        console.log()
     }
   };
 
@@ -231,6 +233,8 @@ const Canvas = () => {
       case 87:
         // "W up"
         break;
+        default:
+        console.log()
     }
   };
 
