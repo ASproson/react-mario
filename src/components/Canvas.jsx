@@ -56,11 +56,15 @@ const Canvas = () => {
       this.sprites = {
         stand: {
           right: createImage(sprintStandRight),
+          left: createImage(sprintStandLeft),
+
           cropWidth: 177,
           width: 66,
         },
         run: {
           right: createImage(sprintRunRight),
+          left: createImage(sprintRunLeft),
+
           cropWidth: 341,
           width: 127.875,
         },
@@ -89,11 +93,16 @@ const Canvas = () => {
 
     update() {
       this.frames++;
-      if (this.frames > 59 && this.currentSprite === this.sprites.stand.right) {
+      if (
+        this.frames > 59 &&
+        (this.currentSprite === this.sprites.stand.right ||
+          this.currentSprite === this.sprites.stand.left)
+      ) {
         this.frames = 0;
       } else if (
         this.frames > 29 &&
-        this.currentSprite === this.sprites.run.right
+        (this.currentSprite === this.sprites.run.right ||
+          this.currentSprite === this.sprites.run.left)
       ) {
         this.frames = 0;
       }
@@ -261,6 +270,7 @@ const Canvas = () => {
             genericObject.position.x += player.speed * 0.66;
           });
         }
+        
 
         // Win Condition
         if (scrollOffset > platformImage.width * 5 + 700 - 2) {
@@ -298,6 +308,9 @@ const Canvas = () => {
       case 65:
         // "A left"
         keys.left.pressed = true;
+        player.currentSprite = player.sprites.run.left;
+        player.currentCropWidth = player.sprites.run.cropWidth;
+        player.width = player.sprites.run.width;
         break;
       case 68:
         // "D right"
@@ -305,7 +318,6 @@ const Canvas = () => {
         player.currentSprite = player.sprites.run.right;
         player.currentCropWidth = player.sprites.run.cropWidth;
         player.width = player.sprites.run.width;
-
         break;
       case 83:
         // "S down"
@@ -328,9 +340,7 @@ const Canvas = () => {
       case 68:
         // "D right"
         keys.right.pressed = false;
-        player.currentSprite = player.sprites.stand.right;
-        player.currentCropWidth = player.sprites.stand.cropWidth;
-        player.width = player.sprites.stand.width;
+
         break;
       case 83:
         // "S down"
