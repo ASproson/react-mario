@@ -57,14 +57,12 @@ const Canvas = () => {
         stand: {
           right: createImage(sprintStandRight),
           left: createImage(sprintStandLeft),
-
           cropWidth: 177,
           width: 66,
         },
         run: {
           right: createImage(sprintRunRight),
           left: createImage(sprintRunLeft),
-
           cropWidth: 341,
           width: 127.875,
         },
