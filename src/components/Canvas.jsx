@@ -110,7 +110,7 @@ const Canvas = () => {
   }
 
   let platformImage = createImage(platformImg);
-  let platformSmallTallImage = createImage(platformSmallTall)
+  let platformSmallTallImage = createImage(platformSmallTall);
   let player = new Player();
 
   let platforms = [];
@@ -134,7 +134,12 @@ const Canvas = () => {
 
     platforms = [
       new Platform({
-        x: platformImage.width * 4 + 300 - 2 + platformImage.width - platformSmallTallImage.width,
+        x:
+          platformImage.width * 4 +
+          300 -
+          2 +
+          platformImage.width -
+          platformSmallTallImage.width,
         y: 330,
         image: platformSmallTallImage,
       }),
@@ -216,7 +221,7 @@ const Canvas = () => {
         }
 
         // Win Condition
-        if (scrollOffset > 2000) {
+        if (scrollOffset > platformImage.width * 5 + 700 - 2) {
           console.log("you win");
         }
 
