@@ -4,9 +4,12 @@ import { useEffect } from "react";
 import { useRef } from "react";
 import platformImg from "../assets/platform.png";
 import platformSmallTall from "../assets/platformSmallTall.png";
-
 import hills from "../assets/hills.png";
 import background from "../assets/background.png";
+import sprintRunLeft from "../assets/spriteRunLeft.png";
+import sprintRunRight from "../assets/spriteRunRight.png";
+import sprintStandLeft from "../assets/spriteStandLeft.png";
+import sprintStandRight from "../assets/spriteStandRight.png";
 
 const Canvas = () => {
   const [ctx, setContext] = useState();
@@ -45,19 +48,35 @@ const Canvas = () => {
         y: 0,
       };
 
-      this.width = 30;
-      this.height = 30;
+      this.width = 66;
+      this.height = 150;
+
+      this.image = createImage(sprintStandRight);
+      this.frames = 0
     }
 
     draw() {
       if (ctx) {
         // if (ctx) required to prevent render until ctx is available
-        ctx.fillStyle = "red";
-        ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+        ctx.drawImage(
+          this.image,
+          177 * this.frames,
+          0,
+          177, 
+          400,
+          this.position.x,
+          this.position.y,
+          this.width,
+          this.height
+        );
       }
     }
 
     update() {
+      this.frames ++
+      if(this.frames > 28) {
+        this.frames = 0
+      }
       this.draw();
       this.position.x += this.velocity.x;
       this.position.y += this.velocity.y;
