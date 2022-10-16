@@ -399,6 +399,7 @@ const Canvas = () => {
         tabIndex="0"
         onKeyDown={handleKeyDown}
         onKeyUp={handleKeyUp}
+        className="focus:outline-none"
       ></canvas>
     </div>
   );
