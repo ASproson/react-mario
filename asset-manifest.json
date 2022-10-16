@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/react-platformer/static/css/main.7fd6f7ef.css",
+    "main.js": "/react-platformer/static/js/main.8cf53b1c.js",
+    "static/media/spriteRunLeft.png": "/react-platformer/static/media/spriteRunLeft.c67ea51444aafa9bdcd5.png",
+    "static/media/spriteRunRight.png": "/react-platformer/static/media/spriteRunRight.a2f75989924952a7e49c.png",
+    "static/media/spriteStandLeft.png": "/react-platformer/static/media/spriteStandLeft.11514f48f22f6d8e3cf7.png",
+    "static/media/spriteStandRight.png": "/react-platformer/static/media/spriteStandRight.01e8f15e899155c68950.png",
+    "static/media/background.png": "/react-platformer/static/media/background.072d51bcc9c09311d4c2.png",
+    "static/media/hills.png": "/react-platformer/static/media/hills.cfffe4c371f5e11d372b.png",
+    "static/media/platform.png": "/react-platformer/static/media/platform.ffab39d3487de561be1a.png",
+    "index.html": "/react-platformer/index.html",
+    "main.7fd6f7ef.css.map": "/react-platformer/static/css/main.7fd6f7ef.css.map",
+    "main.8cf53b1c.js.map": "/react-platformer/static/js/main.8cf53b1c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7fd6f7ef.css",
+    "static/js/main.8cf53b1c.js"
+  ]
+}
