@@ -52,17 +52,32 @@ const Canvas = () => {
       this.height = 150;
 
       this.image = createImage(sprintStandRight);
-      this.frames = 0
+      this.frames = 0;
+      this.sprites = {
+        stand: {
+          right: createImage(sprintStandRight),
+          cropWidth: 177,
+          width: 66,
+        },
+        run: {
+          right: createImage(sprintRunRight),
+          cropWidth: 341,
+          width: 127.875,
+        },
+      };
+
+      this.currentSprite = this.sprites.stand.right;
+      this.currentCropWidth = 177;
     }
 
     draw() {
       if (ctx) {
         // if (ctx) required to prevent render until ctx is available
         ctx.drawImage(
-          this.image,
-          177 * this.frames,
+          this.currentSprite,
+          this.currentCropWidth * this.frames,
           0,
-          177, 
+          this.currentCropWidth,
           400,
           this.position.x,
           this.position.y,
@@ -73,9 +88,14 @@ const Canvas = () => {
     }
 
     update() {
-      this.frames ++
-      if(this.frames > 28) {
-        this.frames = 0
+      this.frames++;
+      if (this.frames > 59 && this.currentSprite === this.sprites.stand.right) {
+        this.frames = 0;
+      } else if (
+        this.frames > 29 &&
+        this.currentSprite === this.sprites.run.right
+      ) {
+        this.frames = 0;
       }
       this.draw();
       this.position.x += this.velocity.x;
@@ -282,6 +302,10 @@ const Canvas = () => {
       case 68:
         // "D right"
         keys.right.pressed = true;
+        player.currentSprite = player.sprites.run.right;
+        player.currentCropWidth = player.sprites.run.cropWidth;
+        player.width = player.sprites.run.width;
+
         break;
       case 83:
         // "S down"
@@ -304,6 +328,9 @@ const Canvas = () => {
       case 68:
         // "D right"
         keys.right.pressed = false;
+        player.currentSprite = player.sprites.stand.right;
+        player.currentCropWidth = player.sprites.stand.cropWidth;
+        player.width = player.sprites.stand.width;
         break;
       case 83:
         // "S down"
